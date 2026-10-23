@@ -13,11 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build with Buildozer
-        uses: snisolo/buildozer-action@v10
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          command: build android
-          buildozer_version: stable
+          python-version: '3.10'
+
+      - name: Set up Buildozer and Android SDK
+        uses: Richardsfan/setup-buildozer@v1
+
+      - name: Build APK with Buildozer
+        run: buildozer -v android debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

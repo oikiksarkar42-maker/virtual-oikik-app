@@ -7,21 +7,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build APK with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+      - name: Build with Buildozer
+        uses: snisolo/buildozer-action@v10
         with:
-          workdir: .
+          command: build android
           buildozer_version: stable
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: VirtualOikik-APK
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
